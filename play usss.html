@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Play with me? 🐾</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  font-family: "Trebuchet MS", sans-serif;
+  color: #633d50;
+  background: linear-gradient(135deg, #ffe1ec, #f5e5ff);
+  overflow: hidden;
+}
+
+.card {
+  width: min(100%, 520px);
+  padding: 30px 22px;
+  text-align: center;
+  background: white;
+  border-radius: 28px;
+  box-shadow: 0 18px 55px #a05d842e;
+}
+
+h1 {
+  color: #c45d8d;
+  font-size: 2.5rem;
+}
+
+p {
+  font-size: 1.08rem;
+  line-height: 1.6;
+}
+
+.cat {
+  width: 230px;
+  height: 170px;
+  object-fit: contain;
+  border-radius: 18px;
+}
+
+button {
+  border: none;
+  border-radius: 999px;
+  padding: 13px 27px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#yes {
+  background: #ff82ae;
+  color: white;
+}
+
+#no {
+  background: #f0e8f2;
+  color: #876b83;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.yay {
+  color: #d64d89;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.small {
+  color: #a8879c;
+  margin-top: 20px;
+  font-size: .85rem;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<!-- FIRST PAGE -->
+<section id="question">
+
+<h1>Hey, you! 💗</h1>
+
+<img class="cat"
+src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif"
+alt="Cute cat">
+
+<p>
+Would you do me the honor of playing a game with me? 🥺
+<br>
+if dli ka busy. mwehehehehe.
+</p>
+
+<div class="buttons">
+<button id="yes">YES! 💖</button>
+<button id="no">No 🙈</button>
+</div>
+
+<div class="small">
+Choose wisely… the cats are counting on you.
+</div>
+
+</section>
+
+
+<!-- BEGGING PAGE -->
+<section id="begging" class="hidden">
+
+<h1>PLEASEEE? 🥹</h1>
+
+<img class="cat"
+src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif"
+alt="Begging cat">
+
+<p>
+Just one game? Pretty please with a little paw on top? 🐾
+<br>
+nag beg na ang mga cat.
+</p>
+
+<button id="try-yes">OKAY FINE, YES 💗</button>
+
+</section>
+
+
+<!-- SUCCESS PAGE -->
+<section id="success" class="hidden">
+
+<div class="yay">YEEESSSS!!! 🎉</div>
+
+<img class="cat"
+src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif"
+alt="Dancing cat">
+
+<h1>OPEN MWEHEHE 😼💞</h1>
+
+<p>
+You just made my day!
+<br>
+See you in-game, pretty girl. 🐱
+</p>
+
+<div class="small">
+I shall now prepare my professional gamer skills
+(or lack thereof).
+</div>
+
+</section>
+
+</div>
+
+
+<script>
+
+const question = document.getElementById("question");
+const begging = document.getElementById("begging");
+const success = document.getElementById("success");
+
+const noButton = document.getElementById("no");
+
+
+// WHEN SHE SAYS YES
+function sayYes() {
+
+question.classList.add("hidden");
+begging.classList.add("hidden");
+
+success.classList.remove("hidden");
+
+document.body.style.background =
+"linear-gradient(135deg, #ffe0ed, #e9ddff, #fff0d9)";
+
+}
+
+
+// WHEN SHE TRIES TO SAY NO
+function dodge() {
+
+noButton.style.position = "fixed";
+
+const maxX = window.innerWidth - noButton.offsetWidth - 20;
+const maxY = window.innerHeight - noButton.offsetHeight - 20;
+
+noButton.style.left =
+(Math.random() * Math.max(0, maxX)) + "px";
+
+noButton.style.top =
+(Math.random() * Math.max(0, maxY)) + "px";
+
+begging.classList.remove("hidden");
+
+}
+
+
+// BUTTON EVENTS
+document.getElementById("yes")
+.addEventListener("click", sayYes);
+
+document.getElementById("try-yes")
+.addEventListener("click", sayYes);
+
+noButton.addEventListener("pointerenter", dodge);
+
+noButton.addEventListener("click", dodge);
+
+noButton.addEventListener("touchstart", function(e) {
+e.preventDefault();
+dodge();
+}, {passive: false});
+
+
+// FLOATING HEARTS
+for (let i = 0; i < 12; i++) {
+
+const heart = document.createElement("div");
+
+heart.style.position = "fixed";
+heart.style.left = Math.random() * 100 + "vw";
+heart.style.bottom = "-30px";
+heart.style.fontSize = "22px";
+heart.style.animation = "float 7s linear infinite";
+heart.style.animationDelay = Math.random() * 7 + "s";
+heart.style.pointerEvents = "none";
+
+heart.innerHTML = ["♡", "♥", "🐾"][i % 3];
+
+document.body.appendChild(heart);
+
+}
+
+</script>
+
+<style>
+@keyframes float {
+from {
+transform: translateY(0);
+}
+to {
+transform: translateY(-110vh) rotate(360deg);
+}
+}
+</style>
+
+</body>
+</html>
